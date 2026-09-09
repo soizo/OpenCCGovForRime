@@ -25,20 +25,14 @@ Files: `scripts/generate.py`、`tests/test_generate.py`、`requirements.txt`。
 
 Interfaces: `compile_opencc(source: Path, target: Path) -> None`、`generate_schema(source: dict, family: str, suffix: str) -> dict`。CLI 接收 `--upstreams` 和全新 `--output` 目录。
 
-- [ ] 写测试：受控 TXT/JSON 经真实 `opencc_dict` 编译后可通过 `opencc` 转换；所有引用加项目前缀；路径穿越、缺失字典或未知结构报错。
-- [ ] 写测试：四类 schema 的开关、默认值、ID、去重顺序与预期一致；无法识别的结构拒绝生成。
-- [ ] 运行 `python3 -m unittest discover -s tests -v`，确认缺少生成器导致失败。
-- [ ] 实现生成器，以 `json`/`pathlib`/`subprocess.run(check=True)` 处理文件与工具，用 PyYAML 读写 schema，不自写 YAML 解析器。递归重写 JSON 中 TXT 字典引用，保持转换链顺序，编译闭包内字典。
-- [ ] 以各家族原 schema 的完整开关及滤镜列表为输入，只替换文字转换项；保持非文字选项与过滤器。在去重之前完成转换。
-- [ ] 在真实上游执行生成，运行测试，提交 `feat: generate namespaced OpenCC and Rime schemes`。
+- [x] 写受控 TXT/JSON 编译、正规化、命名前缀和路径穿越测试；未知配置或缺失字典时失败。
+- [x] 写四类 schema 的开关、默认值、ID、去重顺序与未知结构测试。
+- [x] 运行测试确认生成器缺失导致失败，再实现生成器。
+- [x] 使用 stdlib 和 PyYAML，递归编译字典闭包，保留转换链顺序；仅读取适配所需的顶层 YAML 块。
+- [x] 保持非文字选项与过滤器，在去重之前完成转换；顶层声明 schema ID 供部署器读取。
+- [x] 在真实上游生成 11 个方案并提交，另提交部署前 ID 检查的修复。
 
-核心断言形式：
-
-```python
-self.assertEqual(result['schema']['schema_id'], 'wubi86_gov')
-self.assertEqual(result['schema']['name'], '五笔86大陆')
-self.assertEqual(convert('裏', compiled_config), '里')
-```
+受控测试字表验证 `神裏` → `神里`，用于检查两个转换阶段是否都被执行；这不是上游实际规范映射。真实字形预期及命令见[验证记录](../../verification.md)。
 
 ## Task 2：隔离部署与行为验证
 
@@ -46,35 +40,35 @@ Files: `tests/rime_probe.c`、`scripts/verify.py`、`tests/test_verify.py`。
 
 Interfaces: `rime_probe` 接收临时 shared/user 目录、schema ID、按键和选项；输出候选文字与状态。`verify.py --upstreams PATH --package PATH` 失败返回非零。
 
-- [ ] 先写部署与输入检查：对原/派生方案输入相同按键，比较简体候选；繁体代表字词有手工期望；检查默认状态和两态切换。
-- [ ] 编译探针 `cc tests/rime_probe.c -I "$RIME_INCLUDE" "$RIME_LIBRARY" -o .cache/rime_probe`，执行检查并记录生成器尚未满足的实际失败。
-- [ ] 使用 librime C API 部署隔离目录，不模拟 YAML 合并或简繁转换效果；测试资源来自公开上游及其公开依赖。
-- [ ] 必须覆盖雾凇全拼、全部双拼以及其他三个家族；检查转换后重复候选。失败时区分原方案环境失效与派生适配失效，均阻止发布。
-- [ ] 用实际运行版本和结果写验证记录；未经运行的平台不标为通过。
-- [ ] 运行单元和集成测试，提交 `test: verify derived schemes with isolated librime`。
+- [x] 编写候选比对、规范字预期、默认状态和两态模式检查，先看到失败再修复。
+- [x] 编译 C API 探针，复现并修复顶层 ID 缺失及测试基础 OpenCC 配置不兼容的问题。
+- [x] 使用公开依赖和隔离 shared/user 目录真实部署；补充固定的官方 OpenCC ver.1.1.9 测试基线。
+- [x] 在官方 librime 1.17.0 和鼠须管附带的 1.16.0 上，各验证全部 11 个方案。
+- [x] 将实际验证范围、输入版本和未验证项目写入验证记录。
+- [x] 完成单元与集成测试，纳入本地提交。
 
 ## Task 3：更新、打包与自动发布
 
-Files: `scripts/release.py`、`tests/test_release.py`、`.github/workflows/release.yml`。
+Files: `scripts/release.py`、`tests/test_release.py`、`tests/test_workflow.py`、`.github/workflows/release.yml`。
 
 Interfaces: `scheduled_day(date) -> bool` 以固定 UTC 日期为锚点，日差模 3 判定；手动触发绕过日期条件。构建清单记录所有输入提交、文件摘要和工具版本。
 
-- [ ] 写跨月、跨年日期测试，写无变化跳过及输入改变生成新版本的测试，运行确认缺失功能失败。
-- [ ] 每天唤醒轻量日期门，只有三天槽位才查询上游；不把月内 `*/3` 误用为固定间隔。
-- [ ] 通过固定允许列表获取公开仓库提交；下载内容与所记录提交一致；不执行转换上游的 Python 程序。
-- [ ] 打包项目前缀的配置/字典、派生 schema、使用说明、许可和清单；只在全部部署与行为验证成功后发布。
-- [ ] 构建任务只读权限；独立发布任务获得 contents write。并发运行互斥，不因后续失败删除已有 Release。
-- [ ] 运行 `python3 -m unittest discover -s tests -v`、工作流静态检查及本地端到端构建，提交 `ci: publish validated mainland schemes every three days`。
+- [x] 测试跨月、跨年日期及数据变化指纹；验证缺失功能、验证后篡改、上传失败等失败路径。
+- [x] 每日轻量日期门按三天间隔放行，手动触发可绕过日期门。
+- [x] 从固定仓库清单获取公开提交并记录；不执行 gov 上游转换程序。
+- [x] 打包项目专用文件、许可和清单；验证结果绑定包文件摘要，失败禁止打包。
+- [x] 构建与发布权限分离、运行互斥；草稿上传完成后再公开，失败可恢复。
+- [x] 通过单元测试、actionlint、本地端到端构建及 ZIP 摘要核验，纳入本地提交。
 
 ## Task 4：用户教学与交付复核
 
 Files: `README.md`、`docs/verification.md`、本计划。
 
-- [ ] README 写清先装原方案、复制派生与 OpenCC 文件、加入方案列表、重新部署、简繁切换和三端路径；不加入更新通知或开发讨论。
-- [ ] 验证记录写工具版本、输入提交、运行命令、通过/失败和未验证平台；维护计划复选框。
-- [ ] 运行语言诊断、全部相关测试、`git diff --check`、`lens_diagnostics mode=all`，检查发布包没有私人文件或通用配置覆盖。
-- [ ] 本地提交，报告提交、验证证据与仍未完成的远端 Actions/平台实测。不推送。
+- [x] README 仅提供用户安装和使用教学，开发记录放在 docs/。
+- [x] 写入工具版本、输入提交、命令、验证边界和本地包摘要。
+- [x] 运行语言诊断、相关测试、工作流检查及 ZIP 内容和摘要检查。
+- [x] 本地提交交付；不推送，远端 Actions 与 Windows/Linux 客户端实测保持未完成状态。
 
 ## 当前进度
 
-文档基线已提交；正在核对上游接口并开始 Task 1。测试框架使用 stdlib unittest，不引入 pytest。构建中发现接口差异时先复现、补测试，再修正实现和本计划。
+本地实现、测试和打包已完成。交付物为 `dist/OpenCCGovForRime.zip`（Git 忽略的构建产物），详细证据见[验证记录](../../verification.md)。用户推送后可手动运行 Actions 首次发布；本次没有创建远端仓库或推送。
