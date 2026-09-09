@@ -70,8 +70,7 @@ def generate_schema(source: dict, family: str, suffix: str) -> dict:
     switches = copy.deepcopy(source['switches'])
     filters = list(source['engine'].get('filters', []))
     government: dict = {'option_name': 'gov_traditional', 'opencc_config': PREFIX + 't2gov_keep_simp.json', 'tips': 'none'}
-    patch = {'schema/schema_id': sid + '_gov', 'schema/name': schema['name'] + suffix,
-             'switches': switches, 'engine/filters': filters, 'gov_traditional': government}
+    patch = {'switches': switches, 'engine/filters': filters, 'gov_traditional': government}
     if family == 'ice':
         if filters.count('simplifier@traditionalize') != 1 or not any(s.get('name') == 'traditionalization' for s in switches):
             raise ValueError('Unsupported ice traditionalization structure')
@@ -117,7 +116,10 @@ def generate_schema(source: dict, family: str, suffix: str) -> dict:
         filters.append('uniquifier')
     if filters.index('simplifier@gov_traditional') > filters.index('uniquifier'):
         raise ValueError('Upstream deduplication runs before conversion')
-    return {'__include': sid + '.schema:/', '__patch': patch}
+    # Deployment reads schema_id before expanding __include or __patch.
+    header = {'schema_id': sid + '_gov', 'name': schema['name'] + suffix,
+              'version': str(schema.get('version', '1')) + '.gov'}
+    return {'schema': header, '__include': sid + '.schema:/', '__patch': patch}
 
 
 def name_suffix(name: str) -> str:
@@ -162,7 +164,7 @@ def build(upstreams: Path, output: Path) -> None:
         suffix = '大陸' if sid == 'luna_pinyin' and source['schema']['name'] == '朙月拼音' else name_suffix(source['schema']['name'])
         derived = generate_schema(source, family, suffix)
         (output / (sid + '_gov.schema.yaml')).write_text(yaml.safe_dump(derived, allow_unicode=True, sort_keys=False), encoding='utf-8')
-        entries.append({'id': sid + '_gov', 'base': sid, 'family': family, 'name': derived['__patch']['schema/name']})
+        entries.append({'id': sid + '_gov', 'base': sid, 'family': family, 'name': derived['schema']['name']})
     (output / 'schemes.json').write_text(json.dumps(entries, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     licenses = output / 'licenses'
     licenses.mkdir()

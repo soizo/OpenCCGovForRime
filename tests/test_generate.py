@@ -47,8 +47,8 @@ class GenerateTests(unittest.TestCase):
                 source = schema(family)
                 result = g.generate_schema(source, family, suffix)
                 patch = result['__patch']
-                self.assertEqual(patch['schema/schema_id'], source['schema']['schema_id'] + '_gov')
-                self.assertEqual(patch['schema/name'], source['schema']['name'] + suffix)
+                self.assertEqual(result['schema']['schema_id'], source['schema']['schema_id'] + '_gov')
+                self.assertEqual(result['schema']['name'], source['schema']['name'] + suffix)
                 filters = patch['engine/filters']
                 self.assertLess(filters.index('simplifier@gov_traditional'), filters.index('uniquifier'))
                 self.assertEqual(patch['switches'][0], source['switches'][0])
