@@ -1,0 +1,186 @@
+name: Build and verify mainland Rime schemes
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: govrime-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  calendar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      due: ${{ steps.calendar.outputs.due }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - id: calendar
+        env:
+          EVENT: ${{ github.event_name }}
+          TZ: UTC
+        run: |
+          if [ "$EVENT" = schedule ]; then
+            due=$(python3 scripts/release.py scheduled)
+            echo "due=$due" >> "$GITHUB_OUTPUT"
+          else
+            echo 'due=true' >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: calendar
+    if: needs.calendar.outputs.due == 'true'
+    runs-on: macos-14
+    timeout-minutes: 30
+    outputs:
+      publish: ${{ steps.inputs.outputs.publish }}
+      tag: ${{ steps.inputs.outputs.tag }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        run: |
+          brew list opencc >/dev/null 2>&1 || brew install opencc
+          python3 -m pip install -r requirements.txt
+          mkdir -p .cache
+      - name: Fetch public upstreams
+        run: |
+          python3 scripts/release.py fetch \
+            "$RUNNER_TEMP/upstreams" .cache/revisions.json
+      - id: inputs
+        name: Check input changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          data=$(python3 scripts/release.py fingerprint \
+            "$RUNNER_TEMP/upstreams")
+          code=$(git ls-files -z scripts tests requirements.txt \
+            .github README.md | xargs -0 shasum -a 256 | \
+            shasum -a 256 | cut -d ' ' -f1)
+          key=$(printf '%s\n%s\n' "$data" "$code" | \
+            shasum -a 256 | cut -d ' ' -f1)
+          tag="gov-$key"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo 'build=true' >> "$GITHUB_OUTPUT"
+          if [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ]; then
+            tags=$(gh api --paginate "repos/$REPOSITORY/releases" \
+              --jq '.[] | select(.draft == false) | .tag_name')
+            if printf '%s\n' "$tags" | grep -Fxq "$tag"; then
+              echo 'build=false' >> "$GITHUB_OUTPUT"
+              echo 'publish=false' >> "$GITHUB_OUTPUT"
+            else
+              echo 'publish=true' >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo 'publish=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Fetch pinned official librime with Lua
+        if: steps.inputs.outputs.build == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA256: >-
+            11d8dc663c6ec06d5ccb6111ba664a9e7b631b703ac6acd07cffbac664021850
+        run: |
+          mkdir -p .cache/runtime
+          archive=rime-33e7814-macOS-universal.tar.bz2
+          gh release download 1.17.0 --repo rime/librime \
+            --pattern "$archive" --dir .cache/runtime
+          cd .cache/runtime
+          printf '%s  %s\n' "$SHA256" "$archive" | shasum -a 256 -c -
+          tar -xjf "$archive"
+      - name: Compile Rime probe
+        if: steps.inputs.outputs.build == 'true'
+        run: |
+          runtime="$PWD/.cache/runtime/dist"
+          cc -Wall -Wextra -Werror tests/rime_probe.c -I "$runtime/include" \
+            "$runtime/lib/librime.1.dylib" \
+            "$runtime/lib/rime-plugins/librime-lua.dylib" \
+            -Wl,-rpath,"$runtime/lib" \
+            -Wl,-rpath,"$runtime/lib/rime-plugins" -o .cache/rime_probe
+      - name: Generate and verify
+        if: steps.inputs.outputs.build == 'true'
+        run: |
+          python3 scripts/generate.py --upstreams "$RUNNER_TEMP/upstreams" \
+            --output .cache/package
+          python3 scripts/verify.py --upstreams "$RUNNER_TEMP/upstreams" \
+            --package .cache/package --probe .cache/rime_probe \
+            --report .cache/verification.json
+          python3 scripts/release.py pack .cache/package \
+            .cache/verification.json .cache/revisions.json \
+            dist/OpenCCGovForRime.zip
+      # actions/upload-artifact v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: steps.inputs.outputs.build == 'true'
+        with:
+          name: verified-package
+          path: dist/OpenCCGovForRime.zip
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    if: >-
+      needs.build.outputs.publish == 'true' &&
+      github.ref == format('refs/heads/{0}',
+        github.event.repository.default_branch) &&
+      (github.event_name == 'schedule' ||
+        github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      # actions/download-artifact v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: verified-package
+          path: dist
+      - name: Publish verified package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.build.outputs.tag }}
+          COMMIT: ${{ github.sha }}
+          NOTES: >-
+            包含派生方案、OpenCC 文件、安装说明及版本与验证记录。
+            请先安装原输入方案。
+        run: |
+          [[ "$TAG" =~ ^gov-[a-f0-9]{64}$ ]]
+          releases=$(gh api --paginate "repos/$GH_REPO/releases" \
+            --jq '.[] | [.tag_name, .draft] | @tsv')
+          state=$(printf '%s\n' "$releases" | \
+            awk -v tag="$TAG" '$1 == tag {print $2}')
+          case "$state" in
+            false) exit 0 ;;
+            true)
+              gh release upload "$TAG" dist/OpenCCGovForRime.zip --clobber
+              ;;
+            '')
+              gh release create "$TAG" dist/OpenCCGovForRime.zip --draft \
+                --target "$COMMIT" --title "大陆规范字 · $(date -u +%F)" \
+                --notes "$NOTES"
+              ;;
+            *) exit 1 ;;
+          esac
+          gh release edit "$TAG" --draft=false --latest
