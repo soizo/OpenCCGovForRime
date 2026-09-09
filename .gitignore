@@ -1,0 +1,6 @@
+# Local build inputs and generated release files
+/.cache/
+/dist/
+/.venv/
+__pycache__/
+*.py[cod]
