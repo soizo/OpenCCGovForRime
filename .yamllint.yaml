@@ -1,0 +1,7 @@
+extends: default
+
+rules:
+  indentation:
+    spaces: 2
+    # PyYAML emits valid indentless sequences; preserve verified ZIP bytes.
+    indent-sequences: consistent

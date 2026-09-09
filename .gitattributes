@@ -1,0 +1,2 @@
+# Keep verified release bytes unchanged across Git checkout settings.
+rime/** -text linguist-generated=true

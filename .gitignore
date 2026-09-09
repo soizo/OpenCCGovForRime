@@ -2,5 +2,6 @@
 /.cache/
 /dist/
 /.venv/
+/.govrime-sync-*/
 __pycache__/
 *.py[cod]

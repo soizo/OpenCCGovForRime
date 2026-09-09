@@ -2,7 +2,7 @@
 
 为 Rime 输入方案提供大陆规范繁体输出，保留简体／繁体切换。大陆版与原方案并存，不替换原方案或词库。
 
-安装时使用 Releases 下载包，无需运行构建脚本。下方介绍安装和简繁切换方法。
+可以使用 Releases ZIP，也可以从仓库的 [rime/ 目录](https://github.com/soizo/OpenCCGovForRime/tree/master/rime)下载单独文件，无需运行构建脚本。
 
 ## 支持方案
 
@@ -21,7 +21,11 @@
 
 ### 2. 放入大陆版文件
 
-在本仓库 **Releases** 页面下载发布的 ZIP，解压后：
+在本仓库 **Releases** 页面下载 ZIP 并解压；也可以直接打开 [rime/ 目录](https://github.com/soizo/OpenCCGovForRime/tree/master/rime)，下载需要的方案文件及 `opencc/` 下全部 `govrime_*` 文件。单文件下载请选择 **Raw / Download raw file**，不要保存网页 HTML。
+
+`rime/` 由 Actions 自动生成，请勿手动编辑；更新记录见其中的 `GENERATED.json`、`manifest.json` 和 `verification.json`。
+
+将下载的文件放到以下位置：
 
 - 将需要的 `*_gov.schema.yaml` 放入 Rime 用户目录。
 - 将包内 `opencc/` 中的 `govrime_*` 文件放入用户目录的 `opencc/` 子目录；没有该目录时自行创建。
