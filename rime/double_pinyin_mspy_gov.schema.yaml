@@ -1,0 +1,54 @@
+schema:
+  schema_id: double_pinyin_mspy_gov
+  name: 微软双拼大陆
+  version: 1.gov
+__include: double_pinyin_mspy.schema:/
+__patch:
+  switches:
+  - name: ascii_mode
+    states:
+    - 中
+    - Ａ
+  - name: ascii_punct
+    states:
+    - ¥
+    - $
+  - name: traditionalization
+    states:
+    - 简
+    - 繁
+  - name: emoji
+    states:
+    - 💀
+    - 😄
+    reset: 1
+  - name: full_shape
+    states:
+    - 半角
+    - 全角
+  - name: search_single_char
+    states:
+    - 正常
+    - 单字
+    abbrev:
+    - 词
+    - 单
+  engine/filters:
+  - lua_filter@*corrector
+  - reverse_lookup_filter@radical_reverse_lookup
+  - lua_filter@*autocap_filter
+  - lua_filter@*pin_cand_filter
+  - lua_filter@*reduce_english_filter
+  - simplifier@emoji
+  - simplifier@traditionalize
+  - simplifier@gov_traditional
+  - lua_filter@*search@radical_pinyin
+  - uniquifier
+  gov_traditional:
+    option_name: traditionalization
+    opencc_config: govrime_t2gov_keep_simp.json
+    tips: none
+    tags:
+    - abc
+    - number
+    - gregorian_to_lunar

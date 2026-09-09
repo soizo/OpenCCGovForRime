@@ -1,0 +1,68 @@
+[
+  {
+    "id": "rime_ice_gov",
+    "base": "rime_ice",
+    "family": "ice",
+    "name": "雾凇拼音大陆"
+  },
+  {
+    "id": "double_pinyin_gov",
+    "base": "double_pinyin",
+    "family": "ice",
+    "name": "自然码双拼大陆"
+  },
+  {
+    "id": "double_pinyin_abc_gov",
+    "base": "double_pinyin_abc",
+    "family": "ice",
+    "name": "智能 ABC 双拼大陆"
+  },
+  {
+    "id": "double_pinyin_flypy_gov",
+    "base": "double_pinyin_flypy",
+    "family": "ice",
+    "name": "小鹤双拼大陆"
+  },
+  {
+    "id": "double_pinyin_jiajia_gov",
+    "base": "double_pinyin_jiajia",
+    "family": "ice",
+    "name": "拼音加加双拼大陆"
+  },
+  {
+    "id": "double_pinyin_mspy_gov",
+    "base": "double_pinyin_mspy",
+    "family": "ice",
+    "name": "微软双拼大陆"
+  },
+  {
+    "id": "double_pinyin_sogou_gov",
+    "base": "double_pinyin_sogou",
+    "family": "ice",
+    "name": "搜狗双拼大陆"
+  },
+  {
+    "id": "double_pinyin_ziguang_gov",
+    "base": "double_pinyin_ziguang",
+    "family": "ice",
+    "name": "紫光双拼大陆"
+  },
+  {
+    "id": "luna_pinyin_gov",
+    "base": "luna_pinyin",
+    "family": "luna",
+    "name": "朙月拼音大陸"
+  },
+  {
+    "id": "cangjie5_gov",
+    "base": "cangjie5",
+    "family": "cangjie",
+    "name": "倉頡五代大陸"
+  },
+  {
+    "id": "wubi86_gov",
+    "base": "wubi86",
+    "family": "wubi",
+    "name": "五笔86大陆"
+  }
+]

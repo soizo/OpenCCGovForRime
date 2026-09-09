@@ -1,0 +1,38 @@
+schema:
+  schema_id: wubi86_gov
+  name: 五笔86大陆
+  version: 0.21.gov
+__include: wubi86.schema:/
+__patch:
+  switches:
+  - name: ascii_mode
+    reset: 0
+    states:
+    - 中文
+    - 西文
+  - name: full_shape
+    states:
+    - 半角
+    - 全角
+  - name: extended_charset
+    states:
+    - 常用
+    - 增廣
+  - name: ascii_punct
+    states:
+    - 。，
+    - ．，
+  - name: gov_traditional
+    states:
+    - 简体
+    - 大陸繁體
+    reset: 0
+  engine/filters:
+  - simplifier@gov_traditional
+  - uniquifier
+  gov_traditional:
+    option_name: gov_traditional
+    opencc_config: govrime_s2t.json
+    tips: none
+    excluded_types:
+    - reverse_lookup
