@@ -19,7 +19,7 @@ def compile_opencc(source: Path, target: Path) -> None:
 
     def dictionary(node):
         if not isinstance(node, dict):
-            raise ValueError('Invalid OpenCC dictionary')
+            raise TypeError('Invalid OpenCC dictionary')
         if node.get('type') == 'group':
             if set(node) - {'type', 'dicts', 'match_policy'} or node.get('match_policy', 'short_circuit') != 'short_circuit':
                 raise ValueError('Unsupported OpenCC group policy')

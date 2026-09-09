@@ -1,0 +1,4 @@
+-I.cache/runtime/dist/include
+-std=c11
+-Wall
+-Wextra
