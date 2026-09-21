@@ -1,14 +1,14 @@
 {
   "upstreams": {
     "TerryTian-tech/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards": "d1fb3d5a2e21716fa15572ec9305d15b06dbce5b",
-    "iDvel/rime-ice": "59fcb4a6bfa71e6ba4fc83af07ee55f0c5b76081",
+    "iDvel/rime-ice": "9e66b0729083b37d217312294f6d516c8d7234be",
     "rime/rime-luna-pinyin": "56b934b099dfbeab842320f13aa8b461a6ab3e42",
     "rime/rime-cangjie": "52d90a1b1312e74042b38c1cbc8142defbc53171",
     "rime/rime-wubi": "152a0d3f3efe40cae216d1e3b338242446848d07",
     "rime/rime-prelude": "082425ea0684bca36474415d4a0e8db9b016487e",
     "rime/rime-stroke": "1e8fff9b9494ddec23b0cbc526bcfd8171a6fd48",
     "rime/rime-pinyin-simp": "0c6861ef7420ee780270ca6d993d18d4101049d0",
-    "rime/rime-essay": "e9b1a374a6ea015fca5bdd04318924b4483ac35a",
+    "rime/rime-essay": "e2652ea18609a879eae3e87db5d25b7fbc1a4f93",
     "BYVoid/OpenCC": "556ed22496d650bd0b13b6c163be9814637970ae"
   },
   "files": {
