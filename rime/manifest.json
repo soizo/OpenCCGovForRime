@@ -1,7 +1,7 @@
 {
   "upstreams": {
-    "TerryTian-tech/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards": "d1fb3d5a2e21716fa15572ec9305d15b06dbce5b",
-    "iDvel/rime-ice": "9e66b0729083b37d217312294f6d516c8d7234be",
+    "TerryTian-tech/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards": "bb61139b5f783e7767a4fc4865591b805b942dc3",
+    "iDvel/rime-ice": "3aea6d3694fb3d94ec663641f021f788822897ad",
     "rime/rime-luna-pinyin": "56b934b099dfbeab842320f13aa8b461a6ab3e42",
     "rime/rime-cangjie": "52d90a1b1312e74042b38c1cbc8142defbc53171",
     "rime/rime-wubi": "152a0d3f3efe40cae216d1e3b338242446848d07",
