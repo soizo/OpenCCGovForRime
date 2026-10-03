@@ -110,13 +110,13 @@
     "licenses/rime-luna-pinyin-LICENSE": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
     "licenses/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards-LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "licenses/rime-wubi-LICENSE": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
-    "opencc/govrime_TGCharacters_keep_simp.ocd2": "33f6e62c6bf64c7d10ccec38c8986ec66f3ab6401f8ead2740fcc8c321a3c801",
+    "opencc/govrime_TGCharacters_keep_simp.ocd2": "45ae287563baa1f7db46daf7e6081a5e84b1998002cab4a02b765b8f80d4d9b3",
     "opencc/govrime_s2t.json": "f6891db82c777c51520561e29ab46477975964eda6fa50d3543f0a7099b63d1c",
     "opencc/govrime_CJK_Compatibility_Ideographs.ocd2": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666",
     "opencc/govrime_STPhrases.ocd2": "eba900baa6442a793ea7e32c8846956e281aa670c675390a2fa30ad57cd5c774",
     "opencc/govrime_t2gov_keep_simp.json": "8d4fd8ef6507e85457a9143d3393b91222c659bc24634d1735cebdbcc233c332",
     "opencc/govrime_STCharacters.ocd2": "da4ac322a45e0af919b09444cc1154181b12a6b444adf9352eb47de253024b85",
-    "opencc/govrime_TGPhrases.ocd2": "0544de98013173aa5907758555f1b5d389ef7d54fb1dd0757a19120f18c2225c"
+    "opencc/govrime_TGPhrases.ocd2": "75549d82733177cf38ee5d46826b8899c9b4e385e3b889ea897a9317f0cf71bf"
   },
   "runtime": "librime\t1.17.0"
 }
