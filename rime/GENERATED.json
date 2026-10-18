@@ -20,14 +20,14 @@
     "opencc/govrime_CJK_Compatibility_Ideographs.ocd2": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666",
     "opencc/govrime_STCharacters.ocd2": "da4ac322a45e0af919b09444cc1154181b12a6b444adf9352eb47de253024b85",
     "opencc/govrime_STPhrases.ocd2": "eba900baa6442a793ea7e32c8846956e281aa670c675390a2fa30ad57cd5c774",
-    "opencc/govrime_TGCharacters_keep_simp.ocd2": "72c374ea52b2949bf5ded6669cd4bf5a14173f17f47fb730f83b4ab98f544eba",
-    "opencc/govrime_TGPhrases.ocd2": "d83d5c9ec8e161e1209d516b5f6575ac5766a3f7d03b9f4c34c7830ed423ee3e",
+    "opencc/govrime_TGCharacters_keep_simp.ocd2": "714e56fc159047c8012ce39f42aa91eb539acd57c89cc085fdfdb2029c978955",
+    "opencc/govrime_TGPhrases.ocd2": "6a44e7d3e3a0a25668cdae1f89bc6c749f7fce6ce79304b12fd4b99e973274d9",
     "opencc/govrime_s2t.json": "f6891db82c777c51520561e29ab46477975964eda6fa50d3543f0a7099b63d1c",
     "opencc/govrime_t2gov_keep_simp.json": "8d4fd8ef6507e85457a9143d3393b91222c659bc24634d1735cebdbcc233c332",
     "rime_ice_gov.schema.yaml": "e96c9ac0396983f65a6a8eea0fab20c3f860710d59da269968541f75cf27d6e1",
     "schemes.json": "42ff29223758e41e56f44f6a54daeeadaadc6921c992170a61afb8c28026209f",
     "wubi86_gov.schema.yaml": "c6116d0378e1798a9713ba87f6be3b7ce7984af94dc1e7a13344cc9e1aa48ee4",
-    "manifest.json": "fcaaaf74bbe10c36824e76853b84dbbc4066a44c7a85b469ca11a8c656831c27",
-    "verification.json": "9c8fd83e79c344090d3fef1b6d4a8973c5c6c56f35a4539c875460c4ae0fd75c"
+    "manifest.json": "1303676e5f154ecbe2412e147a52bef7c3395992b8ef3395b6f760c65ceca8a2",
+    "verification.json": "98fcf8caa9d76eb2cc94189c55a5e60966d0eb1700da9006cece60faa99b8d4c"
   }
 }
