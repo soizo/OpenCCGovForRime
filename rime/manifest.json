@@ -1,6 +1,6 @@
 {
   "upstreams": {
-    "TerryTian-tech/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards": "fe735503935bc6dce401ae5ce13b8e569dfa8e07",
+    "TerryTian-tech/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards": "aba2391859910d36f52fe0983d088216b8f10c6b",
     "iDvel/rime-ice": "da1fbe602e38f26db846fa10120ee64c2b0324c0",
     "rime/rime-luna-pinyin": "56b934b099dfbeab842320f13aa8b461a6ab3e42",
     "rime/rime-cangjie": "52d90a1b1312e74042b38c1cbc8142defbc53171",
@@ -29,9 +29,9 @@
     "luna_pinyin_gov.schema.yaml": "1a8c36b5d97748e2a2d65390df438e5ffcf1c592cbd60a31b127c1d784120ad7",
     "opencc/govrime_CJK_Compatibility_Ideographs.ocd2": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666",
     "opencc/govrime_STCharacters.ocd2": "da4ac322a45e0af919b09444cc1154181b12a6b444adf9352eb47de253024b85",
-    "opencc/govrime_STPhrases.ocd2": "eba900baa6442a793ea7e32c8846956e281aa670c675390a2fa30ad57cd5c774",
-    "opencc/govrime_TGCharacters_keep_simp.ocd2": "714e56fc159047c8012ce39f42aa91eb539acd57c89cc085fdfdb2029c978955",
-    "opencc/govrime_TGPhrases.ocd2": "6a44e7d3e3a0a25668cdae1f89bc6c749f7fce6ce79304b12fd4b99e973274d9",
+    "opencc/govrime_STPhrases.ocd2": "029f7b8fa22a325badce79d007f4ab4ed7b12a752bfe8c136d62acb9c08bb333",
+    "opencc/govrime_TGCharacters_keep_simp.ocd2": "695c81bdd59eb2a4fa96d2e7c631feb4a7bccbb10d091d6d7440f406f30f836c",
+    "opencc/govrime_TGPhrases.ocd2": "462def20ff9257f065d6efacdcfb0d22417c947e4dd2760686a16d359ae45e34",
     "opencc/govrime_s2t.json": "f6891db82c777c51520561e29ab46477975964eda6fa50d3543f0a7099b63d1c",
     "opencc/govrime_t2gov_keep_simp.json": "8d4fd8ef6507e85457a9143d3393b91222c659bc24634d1735cebdbcc233c332",
     "rime_ice_gov.schema.yaml": "e96c9ac0396983f65a6a8eea0fab20c3f860710d59da269968541f75cf27d6e1",
