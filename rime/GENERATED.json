@@ -20,14 +20,14 @@
     "opencc/govrime_CJK_Compatibility_Ideographs.ocd2": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666",
     "opencc/govrime_STCharacters.ocd2": "da4ac322a45e0af919b09444cc1154181b12a6b444adf9352eb47de253024b85",
     "opencc/govrime_STPhrases.ocd2": "029f7b8fa22a325badce79d007f4ab4ed7b12a752bfe8c136d62acb9c08bb333",
-    "opencc/govrime_TGCharacters_keep_simp.ocd2": "695c81bdd59eb2a4fa96d2e7c631feb4a7bccbb10d091d6d7440f406f30f836c",
+    "opencc/govrime_TGCharacters_keep_simp.ocd2": "f74b3d0494b41f86c69a90ce829fcbeb9afd58694b204bacf97ccd3785d86397",
     "opencc/govrime_TGPhrases.ocd2": "462def20ff9257f065d6efacdcfb0d22417c947e4dd2760686a16d359ae45e34",
     "opencc/govrime_s2t.json": "f6891db82c777c51520561e29ab46477975964eda6fa50d3543f0a7099b63d1c",
     "opencc/govrime_t2gov_keep_simp.json": "8d4fd8ef6507e85457a9143d3393b91222c659bc24634d1735cebdbcc233c332",
     "rime_ice_gov.schema.yaml": "e96c9ac0396983f65a6a8eea0fab20c3f860710d59da269968541f75cf27d6e1",
     "schemes.json": "42ff29223758e41e56f44f6a54daeeadaadc6921c992170a61afb8c28026209f",
     "wubi86_gov.schema.yaml": "c6116d0378e1798a9713ba87f6be3b7ce7984af94dc1e7a13344cc9e1aa48ee4",
-    "manifest.json": "1f3a779dd4588817c6d26c5d590c2519037a15ba1f019a69931cf489df180f22",
-    "verification.json": "7ab392e9c2a8dfac29e61609d68913487add7337e9b1bb125cef0ac8ceb64ff2"
+    "manifest.json": "b3639d2d9241f3826ed8ccefefbb6c80b91e2249f971ef8b682f72e186ff864d",
+    "verification.json": "ac94633f6df4e7b61a52a142e330de14e680743525da7b59f56a69412758842a"
   }
 }
