@@ -18,16 +18,16 @@
     "licenses/rime-wubi-LICENSE": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
     "luna_pinyin_gov.schema.yaml": "1a8c36b5d97748e2a2d65390df438e5ffcf1c592cbd60a31b127c1d784120ad7",
     "opencc/govrime_CJK_Compatibility_Ideographs.ocd2": "4b1faa6649012f524068ec18c0fb520ead343c11cbe0a8e4c8853ca61369d666",
-    "opencc/govrime_STCharacters.ocd2": "da4ac322a45e0af919b09444cc1154181b12a6b444adf9352eb47de253024b85",
-    "opencc/govrime_STPhrases.ocd2": "029f7b8fa22a325badce79d007f4ab4ed7b12a752bfe8c136d62acb9c08bb333",
-    "opencc/govrime_TGCharacters_keep_simp.ocd2": "a0369031f2c2c0d124a92cf29130174ec2084812c612377345db4bbfe6fcc62c",
-    "opencc/govrime_TGPhrases.ocd2": "aad972f5265cdba22f41b937f9bb66dc81acfbbf214c9ab64d8c17e360b637eb",
+    "opencc/govrime_STCharacters.ocd2": "909dd669e086a42a7f473c293cb13739332c4a3dadd761fbd9a4771da4db196f",
+    "opencc/govrime_STPhrases.ocd2": "46545387ec310c6a7808824ce7b8afbd519466860c8b7ddbf7a79f12cade1179",
+    "opencc/govrime_TGCharacters_keep_simp.ocd2": "74be024fb424783fbca32f369377f42b2bf41cdc7f98adaab6533242c1a4ae22",
+    "opencc/govrime_TGPhrases.ocd2": "7a56820cb0225674c0dde852b7ac209ac377c7e89b141ea7f47e3a421da52b7b",
     "opencc/govrime_s2t.json": "f6891db82c777c51520561e29ab46477975964eda6fa50d3543f0a7099b63d1c",
     "opencc/govrime_t2gov_keep_simp.json": "8d4fd8ef6507e85457a9143d3393b91222c659bc24634d1735cebdbcc233c332",
     "rime_ice_gov.schema.yaml": "e96c9ac0396983f65a6a8eea0fab20c3f860710d59da269968541f75cf27d6e1",
     "schemes.json": "42ff29223758e41e56f44f6a54daeeadaadc6921c992170a61afb8c28026209f",
     "wubi86_gov.schema.yaml": "c6116d0378e1798a9713ba87f6be3b7ce7984af94dc1e7a13344cc9e1aa48ee4",
-    "manifest.json": "43aae7fc00eba5d363ca14369f1143f1984b9ed5c300272779a9122309068f80",
-    "verification.json": "25738ca7af924de9fde0002e1be4b2b61a0074fc5961eda735e98f19f9272866"
+    "manifest.json": "8bc5dddf0be18565a4bc2af67f937fcd44e6a9577b13ab7115b21ae63a6b09dc",
+    "verification.json": "407def6f766e52bd31d73ce5786228502ed97a145dfc6e8d320e20f49987471c"
   }
 }
